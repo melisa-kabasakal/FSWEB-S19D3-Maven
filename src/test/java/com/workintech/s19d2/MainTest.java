@@ -5,9 +5,9 @@ import com.workintech.s19d2.dto.RegistrationMember;
 import com.workintech.s19d2.entity.Account;
 import com.workintech.s19d2.entity.Member;
 import com.workintech.s19d2.entity.Role;
-import com.workintech.s19d2.repository.AccountRepository;
-import com.workintech.s19d2.repository.MemberRepository;
-import com.workintech.s19d2.repository.RoleRepository;
+import com.workintech.s19d2.dao.AccountRepository;
+import com.workintech.s19d2.dao.MemberRepository;
+import com.workintech.s19d2.dao.RoleRepository;
 import com.workintech.s19d2.service.AccountServiceImpl;
 import com.workintech.s19d2.service.AuthenticationService;
 import org.junit.jupiter.api.BeforeEach;
@@ -233,7 +233,7 @@ class MainTest {
     void registerNewMemberSuccessfully() {
         given(mockMemberRepository.findByEmail(anyString())).willReturn(Optional.empty());
         given(passwordEncoder.encode(anyString())).willReturn("password");
-        given(mockRoleRepository.findByAuthority("ADMIN")).willReturn(Optional.of(role));
+        given(mockRoleRepository.findByAuthority("USER")).willReturn(Optional.of(role));
         given(mockMemberRepository.save(any(Member.class))).willReturn(member);
 
         Member registeredMember = authenticationService.register("test@example.com", "password");
